@@ -142,12 +142,14 @@ module JavaBuildpack::Util::Cache
     end
 
     def download(mutable_file_cache, uri)
+      puts "Downloadcache :: come in download:: uri==#{uri}"
       rich_uri = URI(uri)
       request = Net::HTTP::Get.new(rich_uri.request_uri)
 
       issue_http_request(request, rich_uri) do |response, response_code|
         @logger.debug { "Download of #{uri} gave response #{response_code}" }
         if response_code == HTTP_OK
+          puts "Downloadcache :: HTTP_reponse_OK"
           write_response(mutable_file_cache, response)
         elsif response_code == HTTP_NOT_MODIFIED
           fail(InferredNetworkFailure, "Unexpected HTTP response: #{response_code}")

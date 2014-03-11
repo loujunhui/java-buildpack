@@ -156,7 +156,7 @@ module JavaBuildpack::Util::Cache
         end
       end
     rescue => ex
-      handle_failure(ex, 1, 1) {}
+      handle_failure(ex, 1, 2) {}
       false
     end
 

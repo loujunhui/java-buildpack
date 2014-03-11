@@ -201,8 +201,11 @@ module JavaBuildpack::Util::Cache
     # If the file cannot be found in the buildpack cache, raises an exception.
     def obtain(uri, mutable_file_cache)
       if InternetAvailability.use_internet?
+        puts "DownloadCache :: Internet is ok=yes"
         download(mutable_file_cache, uri)
+        puts "DownloadCache :: after download"
       else
+        puts "Unable to download #{uri}. Looking in buildpack cache."
         @logger.debug { "Unable to download #{uri}. Looking in buildpack cache." }
         @buildpack_stash.look_aside(mutable_file_cache, uri)
       end

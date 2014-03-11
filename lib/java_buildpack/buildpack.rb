@@ -193,7 +193,7 @@ module JavaBuildpack
 
       # Main entry to the buildpack.  Initializes the buildpack and all of its dependencies and yields a new instance
       # to any given block.  Any exceptions thrown as part of the buildpack setup or execution are handled
-      #
+      # buildpack的主入口，初始化信赖项，创建buildpack实例
       # @param [String] app_dir the path of the application directory
       # @param [String] message an error message with an insert for the reason for failure
       # @yield [Buildpack] the buildpack to work with

@@ -31,6 +31,7 @@ module JavaBuildpack::Util::Cache
     # @param [String] cache_root the filesystem root for the file to be cached in
     # @param [String] uri a uri which uniquely identifies the file in the cache root
     def initialize(cache_root, uri)
+      puts "FileCache cache_root:#{cache_root} **********"
       FileUtils.mkdir_p(cache_root)
       @cache_root = cache_root
 

@@ -37,8 +37,10 @@ module JavaBuildpack::Util::Cache
       # @return [Boolean] +true+ if and only if the internet is deemed to be available
       def use_internet?
         @@monitor.synchronize do
+          puts "************ internet_checked==#{@@internet_checked}"
           if !@@internet_checked
             remote_downloads_configuration = JavaBuildpack::Util::ConfigurationUtils.load('cache')['remote_downloads']
+            puts "********************** remote_downloads_configuration== #{remote_downloads_configuration}"
             if remote_downloads_configuration == 'disabled'
               store_internet_availability false
               false

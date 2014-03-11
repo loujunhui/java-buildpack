@@ -73,15 +73,17 @@ module JavaBuildpack::Util::Cache
       # Network errors are logged and retried. If these errors persist, the internet is deemed to be unavailable and
       # either the currently cached item is yielded to the block or the buildpack cache is consulted.
       loop do
-        @logger.debug { "DownCache class loop for share lock --debug ljh ***********" }
         file_cache.lock_shared do |immutable_file_cache|
+          puts "DownloadCache :: yield by lock_shared"
           if cache_ready?(immutable_file_cache, uri)
+            puts "DownloadCache :: cache_ready? is true"
             immutable_file_cache.data(&block)
             return # from get
           end
         end
 
         file_cache.lock_exclusive do |mutable_file_cache|
+          puts "DownloadCache :: yield by lock_exclusive,#{cache_ready?(mutable_file_cache, uri)}"
           obtain(uri, mutable_file_cache) unless cache_ready?(mutable_file_cache, uri)
         end
       end

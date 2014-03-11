@@ -54,7 +54,9 @@ module JavaBuildpack::Util::Cache
     # @yield [File] the file representing the cached item
     # @return [void]
     def get(uri, &block)
+      puts "DownloadCache :: come in get uri = #{uri}, "
       file_cache = file_cache(uri)
+      puts "DownloadCache :: get file_cache"
 
       # The following loop terminates when the item has been yielded to the block or an exception is thrown indicating
       # that the item could not be found in the buildpack cache.

@@ -71,7 +71,7 @@ module JavaBuildpack::Util::Cache
       # Network errors are logged and retried. If these errors persist, the internet is deemed to be unavailable and
       # either the currently cached item is yielded to the block or the buildpack cache is consulted.
       loop do
-        puts "DownCache class loop for share lock --debug ljh ***********"
+        @logger.debug { "DownCache class loop for share lock --debug ljh ***********" }
         file_cache.lock_shared do |immutable_file_cache|
           if cache_ready?(immutable_file_cache, uri)
             immutable_file_cache.data(&block)

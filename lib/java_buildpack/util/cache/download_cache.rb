@@ -54,9 +54,8 @@ module JavaBuildpack::Util::Cache
     # @yield [File] the file representing the cached item
     # @return [void]
     def get(uri, &block)
-      puts "DownloadCache :: come in get uri = #{uri}, "
+      puts "@@@@@@@@@@@@@@@@@@@@@@@@@@DownloadCache :: come in get uri = #{uri}, "
       file_cache = file_cache(uri)
-      puts "DownloadCache :: get file_cache"
 
       # The following loop terminates when the item has been yielded to the block or an exception is thrown indicating
       # that the item could not be found in the buildpack cache.
@@ -74,16 +73,13 @@ module JavaBuildpack::Util::Cache
       # either the currently cached item is yielded to the block or the buildpack cache is consulted.
       loop do
         file_cache.lock_shared do |immutable_file_cache|
-          puts "DownloadCache :: yield by lock_shared"
           if cache_ready?(immutable_file_cache, uri)
-            puts "DownloadCache :: cache_ready? is true"
             immutable_file_cache.data(&block)
             return # from get
           end
         end
 
         file_cache.lock_exclusive do |mutable_file_cache|
-          puts "DownloadCache :: yield by lock_exclusive,#{cache_ready?(mutable_file_cache, uri)}"
           obtain(uri, mutable_file_cache) unless cache_ready?(mutable_file_cache, uri)
         end
       end
@@ -99,9 +95,9 @@ module JavaBuildpack::Util::Cache
 
     private
 
-    INTERNET_DETECTION_RETRY_LIMIT = 5000
+    INTERNET_DETECTION_RETRY_LIMIT = 5
 
-    DOWNLOAD_RETRY_LIMIT = 5000
+    DOWNLOAD_RETRY_LIMIT = 5
 
     TIMEOUT_SECONDS = 10
 
@@ -142,7 +138,7 @@ module JavaBuildpack::Util::Cache
     end
 
     def download(mutable_file_cache, uri)
-      puts "Downloadcache :: come in download:: uri==#{uri}"
+      puts "@@@@@@@@@@@@@@@DownloadCache ::download  uri==#{uri}"
       rich_uri = URI(uri)
       request = Net::HTTP::Get.new(rich_uri.request_uri)
 
@@ -188,8 +184,6 @@ module JavaBuildpack::Util::Cache
 
       @logger.debug { "HTTP.start(#{start_parameters(rich_uri)})" }
 
-      puts "^^^^^^^^^^ HTTP.start(#{start_parameters(rich_uri)})  rich_uri== #{rich_uri}"
-      puts "proxy.host==#{proxy.host}  proxy.port==#{proxy.port}  proxy.user==#{proxy.user}  proxy.password==#{proxy.password}"
       Net::HTTP::Proxy(proxy.host, proxy.port, proxy.user, proxy.password).start(*start_parameters(rich_uri)) do |http|
         retry_http_request(http, request, &block)
       end
@@ -203,11 +197,8 @@ module JavaBuildpack::Util::Cache
     # If the file cannot be found in the buildpack cache, raises an exception.
     def obtain(uri, mutable_file_cache)
       if InternetAvailability.use_internet?
-        puts "DownloadCache :: Internet is ok=yes"
         download(mutable_file_cache, uri)
-        puts "DownloadCache :: after download"
       else
-        puts "Unable to download #{uri}. Looking in buildpack cache."
         @logger.debug { "Unable to download #{uri}. Looking in buildpack cache." }
         @buildpack_stash.look_aside(mutable_file_cache, uri)
       end
@@ -215,7 +206,6 @@ module JavaBuildpack::Util::Cache
 
     def retry_http_request(http, request, &block)
       1.upto(retry_limit) do |try|
-        puts "############## retry #{try}"
         begin
           http.request request do |response|
             response_code = response.code

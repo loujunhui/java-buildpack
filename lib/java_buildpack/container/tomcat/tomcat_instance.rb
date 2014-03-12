@@ -34,9 +34,8 @@ module JavaBuildpack::Container
 
     # @macro base_component_compile
     def compile
-      puts "TomcatInstance :: before download ********"
+      puts "@@@@@@@@@@@@@@@@@@@TomcatInstance:: come in compile  @uri==#{@uri}  @version==#{@version}"
       download(@version, @uri) { |file| expand file }
-      puts "TomcatInstance :: after download *********"
       link_to(@application.root.children, root)
       @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
       @droplet.additional_libraries.link_to web_inf_lib

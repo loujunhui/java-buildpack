@@ -199,6 +199,7 @@ module JavaBuildpack
       # @yield [Buildpack] the buildpack to work with
       # @return [Object] the return value from the given block
       def with_buildpack(app_dir, message)
+        puts "@@@@@@@@@@@@JavaBuildpack:: come in with_buildpack"
         app_dir = Pathname.new(File.expand_path(app_dir))
         application = Component::Application.new(app_dir)
         Logging::LoggerFactory.setup app_dir

@@ -76,6 +76,7 @@ module JavaBuildpack::Util::Cache
           if cache_ready?(immutable_file_cache, uri)
             puts "%%%%%%%%%%%% #{immutable_file_cache.to_s}"
             immutable_file_cache.data(&block)
+            puts "^^^^^^^^^^^^^^^^^after data"
             return # from get
           end
         end

@@ -26,6 +26,7 @@ module JavaBuildpack::Container
 
     # @macro base_component_compile
     def compile
+     puts "^^^^^^^^^^^^^^ come int TOmcatLifecycleSupport compile"
       download_jar(jar_name, tomcat_lib)
     end
 

@@ -143,6 +143,7 @@ module JavaBuildpack::Util::Cache
       request = Net::HTTP::Get.new(rich_uri.request_uri)
 
       issue_http_request(request, rich_uri) do |response, response_code|
+        puts "Download of #{uri} gave response #{response_code}"
         @logger.debug { "Download of #{uri} gave response #{response_code}" }
         if response_code == HTTP_OK
           puts "Downloadcache :: HTTP_reponse_OK"

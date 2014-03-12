@@ -74,12 +74,14 @@ module JavaBuildpack::Util::Cache
       loop do
         file_cache.lock_shared do |immutable_file_cache|
           if cache_ready?(immutable_file_cache, uri)
+            puts "%%%%%%%%%%%% #{immutable_file_cache.to_s}"
             immutable_file_cache.data(&block)
             return # from get
           end
         end
 
         file_cache.lock_exclusive do |mutable_file_cache|
+          puts "%%%%%%%%%%%%#{mutable_file_cache.to_s}"
           obtain(uri, mutable_file_cache) unless cache_ready?(mutable_file_cache, uri)
         end
       end

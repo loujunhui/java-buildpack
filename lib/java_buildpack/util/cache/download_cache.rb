@@ -211,6 +211,7 @@ module JavaBuildpack::Util::Cache
 
     def retry_http_request(http, request, &block)
       1.upto(retry_limit) do |try|
+        puts "&$&$&$&$&$ retry #{try}"
         begin
           http.request request do |response|
             response_code = response.code
@@ -219,6 +220,7 @@ module JavaBuildpack::Util::Cache
               yield response, response_code
               return
             else
+              puts "Bad HTTP response: #{response_code}"
               fail(InferredNetworkFailure, "Bad HTTP response: #{response_code}")
             end
           end

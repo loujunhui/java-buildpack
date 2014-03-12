@@ -29,6 +29,7 @@ module JavaBuildpack::Container
 
     # @macro base_component_compile
     def compile
+      puts "*********** come in TomcatRedisStore compile support? #{support?}"
       if supports?
         download_jar(jar_name, tomcat_lib)
         mutate_context

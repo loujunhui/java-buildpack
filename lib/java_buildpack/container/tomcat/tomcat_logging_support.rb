@@ -24,6 +24,7 @@ module JavaBuildpack::Container
 
     # @macro base_component_compile
     def compile
+      puts "################## come in TomcatLoggingSupport compile"
       download_jar(jar_name, endorsed)
     end
 

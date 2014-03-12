@@ -107,6 +107,7 @@ module JavaBuildpack::Component
         puts "9999999999999999999999 download_jar callback"
         FileUtils.mkdir_p target_directory
         FileUtils.cp_r(file.path, target_directory + jar_name)
+        puts "0000000000000000000000000000000000 after FileUtils"
       end
     end
 

@@ -199,6 +199,7 @@ module JavaBuildpack::Util::Cache
       if InternetAvailability.use_internet?
         download(mutable_file_cache, uri)
       else
+        puts "Unable to download #{uri}. Looking in buildpack cache."
         @logger.debug { "Unable to download #{uri}. Looking in buildpack cache." }
         @buildpack_stash.look_aside(mutable_file_cache, uri)
       end

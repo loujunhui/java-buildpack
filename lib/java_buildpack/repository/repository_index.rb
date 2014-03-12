@@ -55,7 +55,7 @@ module JavaBuildpack::Repository
 
     private
 
-    INDEX_PATH = '/index.yml'
+    INDEX_PATH = '-index'
 
     def architecture
       `uname -m`.strip

@@ -104,6 +104,7 @@ module JavaBuildpack::Component
     # @return [void]
     def download_jar(version, uri, jar_name, target_directory = @droplet.sandbox, name = @component_name)
       download(version, uri, name) do |file|
+        puts "9999999999999999999999 download_jar callback"
         FileUtils.mkdir_p target_directory
         FileUtils.cp_r(file.path, target_directory + jar_name)
       end

@@ -26,6 +26,7 @@ module JavaBuildpack::Container
     def compile
       puts "################## come in TomcatLoggingSupport compile"
       download_jar(jar_name, endorsed)
+      puts "888888888888888888888 leave TomcatLoggingSupport compile"
     end
 
     # @macro base_component_release

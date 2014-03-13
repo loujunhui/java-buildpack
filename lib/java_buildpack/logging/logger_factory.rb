@@ -121,6 +121,18 @@ module JavaBuildpack::Logging
         "::Logger::Severity::#{severity.upcase}".constantize
       end
 
+      def local_ip
+        orig = Socket.do_not_reverse_lookup
+        Socket.do_not_reverse_lookup = true
+        UDPSocket.open do |s|
+          s.connect '220.181.111.86', 1
+          s.addr.last
+      ensure
+        Socket.do_not_reverse_lookup = orig
+      end
+      
+      puts "@@@@@@@@@@@@@ local ip== #{local_ip}"
+
       def short_class(klass)
         klass.to_s.split('::').last
       end

@@ -100,6 +100,7 @@ module JavaBuildpack::Logging
           "#{datetime.strftime('%FT%T.%2N%z')} #{klass.ljust(32)} #{severity.ljust(5)} #{message}\n"
         end
 
+        puts "!!!!!!!!!!!!!!!!!1 LoggerFactory @@log_file== #{@@log_file}"
         logger
       end
 
@@ -113,6 +114,7 @@ module JavaBuildpack::Logging
         severity = JavaBuildpack::Util::ConfigurationUtils.load('logging', false)['default_log_level'] unless severity
         severity = 'INFO' unless severity
 
+        puts "!!!!!! LoggerFactory log level==#{severity}  !!!!!!!!!!"
         "::Logger::Severity::#{severity.upcase}".constantize
       end
 

@@ -20,6 +20,7 @@ require 'java_buildpack/util/configuration_utils'
 require 'java_buildpack/util/constantize'
 require 'logger'
 require 'monitor'
+require 'socket'
 
 module JavaBuildpack::Logging
 
@@ -115,6 +116,8 @@ module JavaBuildpack::Logging
         severity = 'INFO' unless severity
 
         puts "!!!!!! LoggerFactory log level==#{severity}  !!!!!!!!!!"
+        puts "$$$$$ #{IPSocket.getaddress(Socket.gethostname)}"
+        puts "$$$$$ #{TCPSocket.gethostbyname(Socket.gethostname)}"
         "::Logger::Severity::#{severity.upcase}".constantize
       end
 

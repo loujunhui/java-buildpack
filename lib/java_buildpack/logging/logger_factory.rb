@@ -116,7 +116,7 @@ module JavaBuildpack::Logging
         severity = 'INFO' unless severity
 
         puts "!!!!!! LoggerFactory log level==#{severity}  !!!!!!!!!!"
-        puts "$$$$$ #{IPSocket.getaddress(Socket.gethostname)}"
+        puts "$$$$$ #{IPSocket.getaddress(Socket.gethostname)}  hostname=#{Socket.gethostname}"
         puts "$$$$$ #{TCPSocket.gethostbyname(Socket.gethostname)}"
         "::Logger::Severity::#{severity.upcase}".constantize
       end

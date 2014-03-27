@@ -60,6 +60,7 @@ module JavaBuildpack::Container
     private
 
     def web_inf?
+      puts "$%$%$%$%$%$ #{@application}   application.root #{@application.root}"
       (@application.root + 'WEB-INF').exist?
     end
 
